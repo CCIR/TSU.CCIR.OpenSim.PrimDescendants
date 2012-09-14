@@ -196,6 +196,35 @@ namespace TeessideUniversity.CCIR.OpenSim
             return resp;
         }
 
+        public static List<UUID> GetAncestors(SceneObjectGroup sog)
+        {
+            List<UUID> resp = new List<UUID>();
+            List<UUID> searchFor = new List<UUID>{
+                sog.UUID
+            };
+            bool foundSome = true;
+            while(foundSome)
+            {
+                List<UUID> searchForThese = searchFor;
+                searchFor = new List<UUID>();
+                foundSome = false;
+                foreach(KeyValuePair<UUID, List<UUID>> kvp in m_descendants)
+                {
+                    foreach(UUID key in searchForThese)
+                    {
+                        if(kvp.Value.Contains(key) && !resp.Contains(kvp.Key))
+                        {
+                            foundSome = true;
+                            resp.Add(kvp.Key);
+                            searchFor.Add(kvp.Key);
+                        }
+                    }
+                }
+            }
+
+            return resp;
+        }
+
         private static SceneObjectGroup GetSceneObjectGroupFromPartID(UUID partID)
         {
             SceneObjectPart sop = null;
