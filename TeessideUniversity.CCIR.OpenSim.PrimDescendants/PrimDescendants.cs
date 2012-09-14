@@ -20,7 +20,7 @@ using OpenSim.Region.ScriptEngine.Shared.ScriptBase;
 namespace TeessideUniversity.CCIR.OpenSim
 {
     [Extension(Path = "/OpenSim/RegionModules", NodeName = "RegionModule", Id = "TSU.CCIR.OpenSim.PrimDescendants")]
-    class PrimDescendants : ISharedRegionModule
+    public class PrimDescendants : ISharedRegionModule
     {
 
         #region logging
